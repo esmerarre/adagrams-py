@@ -43,11 +43,9 @@ def draw_letters():
 
 def uses_available_letters(word, letter_bank):
     word_uppercase = word.upper()
-    is_letter_in_hand = []
-    
     letter_frequency_word = {}
     letter_frequency_hand = {}
-    counter = 0
+    
     for i in word_uppercase:
         if i not in letter_bank:
             return False
@@ -62,9 +60,6 @@ def uses_available_letters(word, letter_bank):
             return False
 
     return True
-        
-    
-    
 
 def score_word(word):
     pass
