@@ -33,16 +33,25 @@ def draw_letters():
     picked_letters = []
     for i in range(0, 10):
         rand_selection = randint(0, len(tiles)-1)
+        while rand_selection in selected_index:
+            rand_selection = randint(0, len(tiles)-1)
         selected_index.append(rand_selection)
-        if rand_selection in selected_index:
-            continue
         random_letter = tiles[rand_selection]
         picked_letters.append(random_letter)
     return picked_letters
 
 
 def uses_available_letters(word, letter_bank):
+    # is_letter_in_hand = []
+    # for i in word:
+    #     if i in letter_bank:
+    #         is_letter_in_hand.append(True)
+    # if False in is_letter_in_hand:
+    #     return False
+    # else: 
+    #     return True
     pass
+    
 
 def score_word(word):
     pass
