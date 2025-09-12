@@ -42,15 +42,28 @@ def draw_letters():
 
 
 def uses_available_letters(word, letter_bank):
-    # is_letter_in_hand = []
-    # for i in word:
-    #     if i in letter_bank:
-    #         is_letter_in_hand.append(True)
-    # if False in is_letter_in_hand:
-    #     return False
-    # else: 
-    #     return True
-    pass
+    word_uppercase = word.upper()
+    is_letter_in_hand = []
+    
+    letter_frequency_word = {}
+    letter_frequency_hand = {}
+    counter = 0
+    for i in word_uppercase:
+        if i not in letter_bank:
+            return False
+        else:
+            letter_frequency_word[i] = letter_frequency_word.get(i, 0) + 1
+
+    for i in letter_bank:
+        letter_frequency_hand[i] = letter_frequency_hand.get(i, 0) + 1
+        
+    for letter in word_uppercase:
+        if letter_frequency_word[letter] > letter_frequency_hand[letter]:
+            return False
+
+    return True
+        
+    
     
 
 def score_word(word):
