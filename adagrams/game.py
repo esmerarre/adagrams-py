@@ -62,7 +62,70 @@ def uses_available_letters(word, letter_bank):
     return True
 
 def score_word(word):
-    pass
+
+    word_uppercase = word.upper()
+    point_sum = 0
+
+    #point lists
+    one_point_letters = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ]
+    two_point_letters = ["D", "G"]
+    three_point_letters = ["B", "C", "M", "P"]
+    four_point_letters = ["F", "H", "V", "W", "Y"]
+    five_point_letters = ["K"]
+    eight_point_letters = ["J", "X"]
+    ten_point_letters = ["Q", "Z"]
+
+    for letter in word_uppercase:
+        if letter in one_point_letters:
+            point_sum += 1
+        elif letter in two_point_letters:
+            point_sum += 2
+        elif letter in three_point_letters:
+            point_sum += 3
+        elif letter in four_point_letters:
+            point_sum +=4
+        elif letter in five_point_letters:
+            point_sum += 5
+        elif letter in eight_point_letters:
+            point_sum += 8
+        elif letter in ten_point_letters:
+            point_sum += 10
+
+    if len(word_uppercase) >= 7:
+        point_sum += 8
+
+    return point_sum
+        
 
 def get_highest_word_score(word_list):
-    pass
+    score_dict = {}
+
+    #build dictionary with words as keys and scores as values
+    for word in word_list:
+        word_score = score_word(word)
+        score_dict[word] = word_score
+    
+    is_first_word = True
+    for word in score_dict.keys():
+        if is_first_word: #first word in dictionary obtained for subsequent comparison with next words
+            higher_score_word = word
+            is_first_word = False
+            continue
+        if score_dict[word] > score_dict[higher_score_word]: 
+            higher_score_word = word
+        else:
+            for word in score_dict.keys(): #this loop compares each word with the last obtained higher_score_word
+                if (score_dict[word] == score_dict[higher_score_word] and 
+                    len(word) == 10 or len(higher_score_word) == 10):
+
+                    if len(word) == 10:
+                        higher_score_word = word
+                        return higher_score_word, score_dict[higher_score_word]
+                
+                elif (score_dict[word] == score_dict[higher_score_word] and 
+                    len(word) < len(higher_score_word)):
+
+                    higher_score_word = word
+                    return higher_score_word, score_dict[higher_score_word]
+                
+    return higher_score_word, score_dict[higher_score_word]
