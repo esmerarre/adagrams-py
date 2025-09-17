@@ -99,32 +99,27 @@ def score_word(word):
 
 def get_highest_word_score(word_list):
     score_dict = {}
-
-    #build dictionary with words as keys and scores as values
     for word in word_list:
         word_score = score_word(word)
         score_dict[word] = word_score
     
     is_first_word = True
     for word in score_dict.keys():
-        if is_first_word: #first word in dictionary obtained for subsequent comparison with next words
+        if is_first_word:
             higher_score_word = word
             is_first_word = False
             continue
         if score_dict[word] > score_dict[higher_score_word]: 
             higher_score_word = word
         else:
-            for word in score_dict.keys(): #this loop compares each word with the last obtained higher_score_word
+            for word in score_dict.keys():
                 if (score_dict[word] == score_dict[higher_score_word] and 
                     len(word) == 10 or len(higher_score_word) == 10):
-
                     if len(word) == 10:
                         higher_score_word = word
                         return higher_score_word, score_dict[higher_score_word]
-                
                 elif (score_dict[word] == score_dict[higher_score_word] and 
                     len(word) < len(higher_score_word)):
-
                     higher_score_word = word
                     return higher_score_word, score_dict[higher_score_word]
                 
